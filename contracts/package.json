@@ -1,0 +1,27 @@
+{
+  "name": "keel-contracts",
+  "version": "1.0.0",
+  "description": "Smart contracts for KEEL self-stabilizing liquidity",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:local": "hardhat run scripts/deploy.js",
+    "preflight:xlayer": "hardhat run scripts/preflight-xlayer-mainnet.js --network xLayerMainnet",
+    "deploy:xlayer": "hardhat run scripts/deploy-xlayer-hook.js --network xLayerMainnet",
+    "proof:xlayer": "hardhat run scripts/run-xlayer-mainnet-usdg-proof.js --network xLayerMainnet",
+    "proof:xlayer-testnet": "hardhat run scripts/run-xlayer-testnet-usdg-demo.js --network xLayerTestnet"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.2"
+  },
+  "dependencies": {
+    "@uniswap/sdk-core": "^7.15.0",
+    "@uniswap/v3-sdk": "^3.30.1",
+    "@uniswap/v4-core": "^1.0.2",
+    "@uniswap/v4-periphery": "^1.0.3",
+    "@uniswap/v4-sdk": "^2.1.1",
+    "solmate": "^6.8.0"
+  }
+}
