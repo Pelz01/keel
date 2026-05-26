@@ -248,7 +248,12 @@ export async function waitForTransactionReceipt(provider: any, txHash: string): 
   throw new Error(`Timed out waiting for transaction receipt: ${txHash}`);
 }
 
-export async function fetchKeelLogsOnchain(provider: any, hookAddress: string, poolId: string): Promise<any[]> {
+export interface KeelLogFetchResult {
+  events: any[];
+  source: 'recent' | 'verified';
+}
+
+export async function fetchKeelLogsOnchain(provider: any, hookAddress: string, poolId: string): Promise<KeelLogFetchResult> {
   const parseWithTimestamps = async (logs: any[]) => {
     const blockTimestamps = new Map<string, string>();
     const parsed = [];
@@ -269,7 +274,7 @@ export async function fetchKeelLogsOnchain(provider: any, hookAddress: string, p
     return parsed;
   };
 
-  const fetchProofReceiptLogs = async () => {
+  const fetchProofReceiptLogs = async (): Promise<KeelLogFetchResult> => {
     const receiptLogs = [];
     for (const txHash of MAINNET_PROOF_TXS) {
       const receipt = await provider.request({ method: 'eth_getTransactionReceipt', params: [txHash] });
@@ -278,7 +283,10 @@ export async function fetchKeelLogsOnchain(provider: any, hookAddress: string, p
         ...receipt.logs.filter((log: any) => log.address?.toLowerCase() === hookAddress.toLowerCase())
       );
     }
-    return parseWithTimestamps(receiptLogs);
+    return {
+      events: await parseWithTimestamps(receiptLogs),
+      source: 'verified',
+    };
   };
 
   try {
@@ -299,17 +307,20 @@ export async function fetchKeelLogsOnchain(provider: any, hookAddress: string, p
       }]
     });
 
-    if (!logs || !Array.isArray(logs)) return [];
+    if (!logs || !Array.isArray(logs)) return { events: [], source: 'recent' };
     if (logs.length === 0) return fetchProofReceiptLogs();
 
-    return parseWithTimestamps(logs);
+    return {
+      events: await parseWithTimestamps(logs),
+      source: 'recent',
+    };
   } catch (err) {
     console.warn('Failed to fetch onchain logs:', err);
     try {
       return await fetchProofReceiptLogs();
     } catch (receiptErr) {
       console.warn('Failed to fetch proof receipt logs:', receiptErr);
-      return [];
+      return { events: [], source: 'verified' };
     }
   }
 }

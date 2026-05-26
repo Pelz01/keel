@@ -100,6 +100,7 @@ export default function App() {
   const [recoveryBudget, setRecoveryBudget] = useState(0);
   const [userCredits, setUserCredits] = useState(0);
   const [events, setEvents] = useState<HookEvent[]>([]);
+  const [eventSource, setEventSource] = useState<'recent' | 'verified'>('recent');
   const [poolReadError, setPoolReadError] = useState<string | null>(null);
 
   // Swap input state
@@ -345,12 +346,13 @@ export default function App() {
           if (credits !== null) setUserCredits(credits);
         }
 
-        const logs = await fetchKeelLogsOnchain(publicReadProvider, hookAddress, poolId);
-        if (active && logs.length > 0) {
+        const logResult = await fetchKeelLogsOnchain(publicReadProvider, hookAddress, poolId);
+        if (active) setEventSource(logResult.source);
+        if (active && logResult.events.length > 0) {
           // Only update if logs changed to avoid unneeded re-renders
           setEvents((prev) => {
-            if (prev.length === logs.length) return prev;
-            return logs;
+            if (prev.length === logResult.events.length) return prev;
+            return logResult.events;
           });
         }
       } catch (err) {
@@ -1042,6 +1044,7 @@ function beforeSwap(
               vaultAddress={vaultAddress}
               managerAddress={managerAddress}
               poolId={poolId}
+              eventSource={eventSource}
               explorerBaseUrl={explorerBaseUrl}
             />
           </div>

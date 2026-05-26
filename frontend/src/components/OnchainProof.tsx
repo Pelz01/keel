@@ -14,6 +14,7 @@ interface OnchainProofProps {
   vaultAddress: string;
   managerAddress: string;
   poolId: string;
+  eventSource?: 'recent' | 'verified';
   explorerBaseUrl?: string;
 }
 
@@ -25,6 +26,7 @@ export const OnchainProof: React.FC<OnchainProofProps> = ({
   vaultAddress,
   managerAddress,
   poolId,
+  eventSource = 'recent',
   explorerBaseUrl = 'https://www.okx.com/web3/explorer/xlayer',
 }) => {
   const [activeFilter, setActiveFilter] = useState<EventFilter>('All');
@@ -103,7 +105,12 @@ export const OnchainProof: React.FC<OnchainProofProps> = ({
       {/* Event Console */}
       <div style={styles.consoleContainer}>
         <div style={styles.consoleHeader}>
-          <span style={styles.consoleTitle}>Live Hook Event Stream</span>
+          <div style={styles.consoleTitleGroup}>
+            <span style={styles.consoleTitle}>Recent Hook Activity</span>
+            {eventSource === 'verified' && (
+              <span style={styles.sourceNote}>Showing verified mainnet activity</span>
+            )}
+          </div>
           <div style={styles.filters}>
             {['All', 'FlowUpdated', 'SwapClassified', 'StabilizationApplied', 'RecoveryCredited'].map((filter) => (
               <button
@@ -251,6 +258,16 @@ const styles = {
   consoleTitle: {
     color: 'var(--text-primary)',
     fontWeight: '600',
+  },
+  consoleTitleGroup: {
+    display: 'flex',
+    flexDirection: 'column' as const,
+    gap: '4px',
+  },
+  sourceNote: {
+    color: 'var(--text-secondary)',
+    fontSize: '10px',
+    fontWeight: '500',
   },
   filters: {
     display: 'flex',
