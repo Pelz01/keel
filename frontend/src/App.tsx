@@ -54,6 +54,7 @@ export default function App() {
   const [stableBalance, setStableBalance] = useState<number>(0);
   const [showWalletDropdown, setShowWalletDropdown] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [landingMenuOpen, setLandingMenuOpen] = useState(false);
 
   // Toast Notification State
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -201,12 +202,20 @@ export default function App() {
   }, []);
 
   const navigateToLanding = () => {
+    setLandingMenuOpen(false);
     window.location.hash = '#/';
   };
 
   const navigateToApp = (tab: AppSubPage) => {
+    setLandingMenuOpen(false);
     window.location.hash = `#/app/${tab}`;
     window.scrollTo(0, 0);
+  };
+
+  const scrollLandingSection = (id: string) => {
+    setLandingMenuOpen(false);
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   // Derived state
@@ -503,8 +512,7 @@ export default function App() {
           <nav className="landing-nav" style={styles.landingNav}>
             <button
               onClick={() => {
-                const el = document.getElementById('problem');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
+                scrollLandingSection('problem');
               }}
               style={styles.landingNavLink}
             >
@@ -512,8 +520,7 @@ export default function App() {
             </button>
             <button
               onClick={() => {
-                const el = document.getElementById('architecture');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
+                scrollLandingSection('architecture');
               }}
               style={styles.landingNavLink}
             >
@@ -560,6 +567,25 @@ export default function App() {
             >
               Launch app
             </button>
+
+            <button
+              className={`landing-menu-toggle ${landingMenuOpen ? 'open' : ''}`}
+              onClick={() => setLandingMenuOpen((open) => !open)}
+              aria-label={landingMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={landingMenuOpen}
+            >
+              <span />
+              <span />
+              <span />
+            </button>
+          </div>
+
+          <div className={`landing-mobile-menu ${landingMenuOpen ? 'open' : ''}`}>
+            <button onClick={() => scrollLandingSection('problem')}>Features</button>
+            <button onClick={() => scrollLandingSection('architecture')}>Architecture</button>
+            <a href="/docs.html" target="_blank" rel="noreferrer" onClick={() => setLandingMenuOpen(false)}>
+              Docs
+            </a>
           </div>
         </header>
 
