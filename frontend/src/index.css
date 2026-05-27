@@ -316,16 +316,58 @@ input, button, select, textarea {
 }
 
 @media (max-width: 768px) {
+  .app-announcement-banner {
+    padding: 7px 14px !important;
+    font-size: 10px !important;
+    line-height: 1.45 !important;
+    letter-spacing: 0.75px !important;
+  }
+
   .landing-header {
-    flex-direction: column !important;
-    gap: 16px !important;
-    padding: 16px 12px !important;
+    display: grid !important;
+    grid-template-columns: 1fr auto !important;
+    gap: 14px 12px !important;
+    padding: 14px 18px 16px !important;
     align-items: center !important;
+    border-bottom: 1px solid var(--border-color) !important;
+  }
+
+  .brand-lockup {
+    justify-content: flex-start !important;
+  }
+
+  .brand-lockup svg {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .landing-actions {
+    justify-content: flex-end !important;
+    gap: 8px !important;
+  }
+
+  .landing-actions .theme-toggle-btn {
+    width: 38px !important;
+    height: 38px !important;
+  }
+
+  .landing-actions button:not(.theme-toggle-btn) {
+    padding: 10px 18px !important;
+    font-size: 13px !important;
   }
   
   .landing-nav {
-    gap: 20px !important;
-    justify-content: center;
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    gap: 0 !important;
+    justify-content: space-between !important;
+    padding: 0 8px !important;
+  }
+
+  .landing-nav button,
+  .landing-nav a {
+    font-size: 13px !important;
+    padding: 6px 4px !important;
   }
   
   .comparison-inner {
@@ -341,27 +383,65 @@ input, button, select, textarea {
   }
   
   .app-header-container {
-    flex-direction: column !important;
-    gap: 16px !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    gap: 12px !important;
     align-items: center !important;
+    padding: 14px 18px 16px !important;
   }
   
   .app-nav-wrapper {
-    flex-direction: column !important;
+    grid-column: 1 / -1 !important;
+    order: 3 !important;
+    flex-direction: row !important;
     width: 100% !important;
-    align-items: center !important;
-    gap: 12px !important;
+    align-items: stretch !important;
+    gap: 8px !important;
   }
   
   .app-nav-tabs {
-    width: 100% !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    width: auto !important;
     justify-content: center !important;
+    gap: 2px !important;
+    padding: 3px !important;
+  }
+
+  .app-tab-btn {
+    flex: 1 1 0 !important;
+    padding: 9px 8px !important;
+    font-size: 13px !important;
+    white-space: nowrap !important;
+  }
+
+  .app-docs-link-separate {
+    flex: 0 0 auto !important;
+    padding: 9px 12px !important;
+    font-size: 13px !important;
   }
   
   .header-right-row {
-    width: 100% !important;
-    justify-content: center !important;
-    gap: 12px !important;
+    width: auto !important;
+    justify-content: flex-end !important;
+    justify-self: end !important;
+    gap: 8px !important;
+  }
+
+  .header-right-row > div {
+    gap: 8px !important;
+  }
+
+  .header-right-row .theme-toggle-btn {
+    width: 38px !important;
+    height: 38px !important;
+  }
+
+  .header-right-row button {
+    min-height: 38px !important;
+    padding: 8px 14px !important;
+    font-size: 12px !important;
+    white-space: nowrap !important;
   }
   
   .search-bar-wrapper {
@@ -400,6 +480,32 @@ input, button, select, textarea {
 }
 
 @media (max-width: 480px) {
+  .app-header-container,
+  .landing-header {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .app-nav-wrapper {
+    gap: 6px !important;
+  }
+
+  .app-tab-btn {
+    padding: 8px 6px !important;
+    font-size: 12.5px !important;
+  }
+
+  .app-docs-link-separate {
+    padding: 8px 10px !important;
+    font-size: 12.5px !important;
+  }
+
+  .landing-actions button:not(.theme-toggle-btn),
+  .header-right-row button {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
   .sim-metrics-grid {
     grid-template-columns: 1fr !important;
   }
@@ -465,5 +571,4 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
-
 

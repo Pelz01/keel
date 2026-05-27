@@ -486,13 +486,13 @@ export default function App() {
     return (
       <div style={styles.landingRoot}>
         {/* Landing Global Announcement Banner */}
-        <div style={styles.appAnnouncementBanner}>
+        <div className="app-announcement-banner" style={styles.appAnnouncementBanner}>
           <span>KEEL is a self-stabilizing Uniswap v4 Hook for X Layer liquidity.</span>
         </div>
 
         {/* Landing Global Header */}
         <header className="landing-header" style={styles.landingHeader}>
-          <div style={styles.landingLogoRow}>
+          <div className="brand-lockup" style={styles.landingLogoRow}>
             <svg style={styles.logoSvg} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 2L2 22h20L12 2z" stroke="var(--text-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               <path d="M12 8v10M8 14h8" stroke="var(--text-secondary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -529,7 +529,7 @@ export default function App() {
             </a>
           </nav>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div className="landing-actions" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <button
               onClick={toggleTheme}
               className="theme-toggle-btn"
@@ -783,14 +783,14 @@ function beforeSwap(
   return (
     <div style={styles.appRootWrapper}>
       {/* App announcement mini banner */}
-      <div style={styles.appAnnouncementBanner}>
+      <div className="app-announcement-banner" style={styles.appAnnouncementBanner}>
         <span>X Layer // Active Keel stabilizer pool</span>
       </div>
 
       {/* App Navigation Header */}
       <header className="app-header" style={styles.appHeader}>
         <div className="app-header-container" style={styles.appHeaderContainer}>
-          <div onClick={navigateToLanding} style={{ ...styles.landingLogoRow, cursor: 'pointer' }}>
+          <div className="brand-lockup" onClick={navigateToLanding} style={{ ...styles.landingLogoRow, cursor: 'pointer' }}>
             <svg style={styles.logoSvg} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 2L2 22h20L12 2z" stroke="var(--text-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               <path d="M12 8v10M8 14h8" stroke="var(--text-secondary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
