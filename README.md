@@ -201,6 +201,8 @@ The live app is configured for the OKB / USDG protected pool. OKB / USDC and OKB
 
 ## Demo Walkthrough
 
+[Demo video](https://x.com/KeelProtocol/status/2059701447378272635)
+
 Most AMMs are passive. They execute trades, but they do not understand whether flow is healthy or toxic.
 
 KEEL is a Uniswap v4 Hook that makes pools self-stabilizing.
